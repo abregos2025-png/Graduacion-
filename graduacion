@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#091326">
+<title>Clausura | Una noche para recordar</title>
+
+<style>
+:root {
+  --navy: #091326;
+  --navy2: #142544;
+  --blue: #253e68;
+  --silver: #cbd2dc;
+  --white: #f7f9fd;
+  --muted: #aab5c7;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: var(--navy);
+  color: var(--white);
+}
+
+button {
+  font: inherit;
+}
+
+#presentation {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 50% 30%, #243a5e 0%, transparent 48%),
+    linear-gradient(140deg, #080f20, #172744 52%, #080f20);
+}
+
+#presentation::before,
+#presentation::after {
+  content: "";
+  position: absolute;
+  width: 65vw;
+  height: 65vw;
+  max-width: 800px;
+  max-height: 800px;
+  border: 1px solid rgba(218, 228, 243, .08);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+#presentation::before {
+  top: -42vw;
+  left: -22vw;
+  box-shadow:
+    0 0 0 45px rgba(218,228,243,.018),
+    0 0 0 90px rgba(218,228,243,.014);
+}
+
+#presentation::after {
+  right: -35vw;
+  bottom: -48vw;
+  box-shadow:
+    0 0 0 45px rgba(218,228,243,.018),
+    0 0 0 90px rgba(218,228,243,.014);
+}
+
+#particles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.spark {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #f3f7ff;
+  opacity: .25;
+  box-shadow: 0 0 9px 2px rgba(219,232,255,.45);
+  animation: twinkle var(--duration) ease-in-out infinite;
+  animation-delay: var(--delay);
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: .15; transform: scale(.65); }
+  50% { opacity: .95; transform: scale(1.5); }
+}
+
+.topbar {
+  position: absolute;
+  z-index: 10;
+  top: max(22px, env(safe-area-inset-top));
+  left: 6%;
+  right: 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.brand {
+  font-size: 11px;
+  letter-spacing: .27em;
+  color: var(--silver);
+  text-transform: uppercase;
+}
+
+.music-button {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  background: rgba(5, 14, 29, .54);
+  border: 1px solid rgba(211, 223, 243, .24);
+  border-radius: 30px;
+  padding: 10px 15px;
+  color: #edf3ff;
+  cursor: pointer;
+  transition: .25s;
+  font-size: 12px;
+}
+
+.music-button:hover {
+  background: rgba(67, 91, 133, .45);
+  border-color: rgba(224,234,250,.7);
+}
+
+.music-symbol {
+  font-size: 17px;
+}
+
+#stage {
+  position: absolute;
+  inset: 0;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 92px 7% 112px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(16px) scale(.99);
+  transition:
+    opacity .65s ease,
+    transform .65s ease,
+    visibility .65s;
+  overflow-y: auto;
+}
+
+.slide.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+.slide-content {
+  position: relative;
+  z-index: 2;
+  width: min(1050px, 100%);
+  text-align: center;
+  margin: auto;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--silver);
+  text-transform: uppercase;
+  letter-spacing: .35em;
+  font-size: 10px;
+  margin-bottom: 22px;
+}
+
+.eyebrow::before,
+.eyebrow::after {
+  content: "";
+  width: 35px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #aebed7);
+}
+
+.eyebrow::after {
+  transform: rotate(180deg);
+}
+
+h1, h2, p {
+  margin-top: 0;
+}
+
+h1, h2 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 400;
+}
+
+.cover-title {
+  margin-bottom: 8px;
+  font-size: clamp(48px, 8.5vw, 105px);
+  line-height: 1.02;
+  letter-spacing: .035em;
+}
+
+.cover-title span {
+  display: block;
+  color: var(--silver);
+  font-style: italic;
+  font-size: .56em;
+  margin-top: 12px;
+  letter-spacing: .08em;
+}
+
+.subtitle {
+  margin: 22px auto 0;
+  max-width: 600px;
+  color: #d0d9e8;
+  font-size: clamp(14px, 2vw, 19px);
+  line-height: 1.9;
+  letter-spacing: .045em;
+}
+
+.ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+  margin: 27px auto;
+  color: #ced8e8;
+}
+
+.ornament::before,
+.ornament::after {
+  content: "";
+  width: 62px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #a9b8d0);
+}
+
+.ornament::after {
+  transform: rotate(180deg);
+}
+
+.cover-figure {
+  width: clamp(125px, 20vw, 205px);
+  margin: 25px auto 0;
+  filter: drop-shadow(0 18px 33px rgba(0,0,0,.28));
+  animation: float 5s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.small-note {
+  color: #9daec9;
+  font-size: 10px;
+  letter-spacing: .27em;
+  text-transform: uppercase;
+  margin-top: 17px;
+}
+
+.section-title {
+  font-size: clamp(36px, 6.5vw, 72px);
+  line-height: 1.13;
+  max-width: 900px;
+  margin: 0 auto 25px;
+}
+
+.section-title em {
+  color: var(--silver);
+  font-weight: 400;
+}
+
+.body-copy {
+  color: #c3cee0;
+  max-width: 680px;
+  margin: 0 auto;
+  font-size: clamp(14px, 1.8vw, 18px);
+  line-height: 1.95;
+}
+
+.big-number {
+  color: rgba(220,230,246,.12);
+  font-family: Georgia, serif;
+  font-size: clamp(90px, 17vw, 190px);
+  line-height: .8;
+  margin-bottom: 28px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 17px;
+  max-width: 900px;
+  margin: 35px auto 0;
+}
+
+.memory-card {
+  padding: 25px 16px;
+  background: linear-gradient(
+    145deg,
+    rgba(225,233,246,.09),
+    rgba(225,233,246,.025)
+  );
+  border: 1px solid rgba(214,226,246,.17);
+  border-radius: 5px;
+  min-height: 142px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+  transition: .3s;
+}
+
+.memory-card:hover {
+  transform: translateY(-5px);
+  background: rgba(225,233,246,.1);
+}
+
+.card-icon {
+  font-size: 23px;
+  color: #d9e3f4;
+}
+
+.memory-card h3 {
+  font-family: Georgia, serif;
+  font-size: clamp(17px, 2.3vw, 23px);
+  font-weight: 400;
+  margin: 0;
+}
+
+.memory-card p {
+  margin: 0;
+  color: #aebbd0;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.quote {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(30px, 5.7vw, 64px);
+  line-height: 1.38;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.quote span {
+  color: #c5d1e3;
+  font-style: italic;
+}
+
+.quote-mark {
+  color: #8da6ca;
+  font-family: Georgia, serif;
+  font-size: 75px;
+  line-height: .8;
+  margin-bottom: 15px;
+}
+
+.thank-you {
+  font-family: Georgia, serif;
+  font-size: clamp(48px, 9vw, 100px);
+  line-height: 1.1;
+  margin-bottom: 18px;
+  color: #f3f5fa;
+}
+
+.thank-you span {
+  display: block;
+  color: var(--silver);
+  font-style: italic;
+}
+
+.final-line {
+  font-size: clamp(13px, 1.8vw, 17px);
+  letter-spacing: .12em;
+  color: #c7d3e6;
+  line-height: 2;
+  max-width: 640px;
+  margin: 25px auto 0;
+}
+
+.bottom {
+  position: absolute;
+  z-index: 10;
+  bottom: max(19px, env(safe-area-inset-bottom));
+  left: 6%;
+  right: 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.footer-label {
+  color: #8d9db6;
+  font-size: 9px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+
+.navigation {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav-button {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid rgba(219,229,245,.3);
+  color: white;
+  background: rgba(8,19,38,.5);
+  font-size: 20px;
+  cursor: pointer;
+  transition: .25s;
+}
+
+.nav-button:hover {
+  background: #30476a;
+  border-color: #e1e9f7;
+}
+
+.dots {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #64748b;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.dot.active {
+  width: 23px;
+  border-radius: 8px;
+  background: #dce5f3;
+}
+
+.counter {
+  color: #d0d9e7;
+  font-size: 11px;
+  letter-spacing: .12em;
+  min-width: 41px;
+  text-align: center;
+}
+
+.progress {
+  position: absolute;
+  z-index: 12;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  background: #d4deed;
+  width: 20%;
+  transition: width .5s ease;
+  box-shadow: 0 0 12px rgba(214,227,248,.55);
+}
+
+.toast {
+  position: absolute;
+  z-index: 30;
+  left: 50%;
+  bottom: 83px;
+  transform: translate(-50%, 12px);
+  width: max-content;
+  max-width: 88%;
+  text-align: center;
+  background: rgba(6,14,29,.95);
+  border: 1px solid rgba(216,228,247,.24);
+  color: #eef3fb;
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 12px;
+  line-height: 1.6;
+  opacity: 0;
+  visibility: hidden;
+  transition: .3s;
+}
+
+.toast.visible {
+  transform: translate(-50%, 0);
+  opacity: 1;
+  visibility: visible;
+}
+
+@media (max-width: 620px) {
+  .topbar {
+    left: 5%;
+    right: 5%;
+    top: max(15px, env(safe-area-inset-top));
+  }
+
+  .brand {
+    font-size: 9px;
+    letter-spacing: .16em;
+  }
+
+  .music-button {
+    font-size: 10px;
+    padding: 9px 11px;
+    gap: 6px;
+  }
+
+  .slide {
+    padding: 85px 7% 94px;
+  }
+
+  .eyebrow {
+    font-size: 8px;
+    letter-spacing: .2em;
+    margin-bottom: 17px;
+  }
+
+  .cover-figure {
+    width: 115px;
+    margin-top: 17px;
+  }
+
+  .subtitle {
+    margin-top: 13px;
+    line-height: 1.7;
+  }
+
+  .ornament {
+    margin: 17px auto;
+  }
+
+  .cards {
+    gap: 9px;
+    margin-top: 23px;
+  }
+
+  .memory-card {
+    min-height: 120px;
+    padding: 15px 8px;
+    gap: 9px;
+  }
+
+  .memory-card p {
+    font-size: 10px;
+  }
+
+  .card-icon {
+    font-size: 19px;
+  }
+
+  .bottom {
+    left: 5%;
+    right: 5%;
+    bottom: max(13px, env(safe-area-inset-bottom));
+  }
+
+  .footer-label {
+    display: none;
+  }
+
+  .navigation {
+    width: 100%;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .nav-button {
+    width: 38px;
+    height: 38px;
+  }
+
+  .dots {
+    gap: 6px;
+  }
+
+  .toast {
+    bottom: 66px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}
+</style>
+</head>
+
+<body>
+<main id="presentation">
+
+  <div id="particles" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <div class="brand">Una noche para recordar</div>
+
+    <button class="music-button" id="musicButton" type="button">
+      <span class="music-symbol" id="musicSymbol">♫</span>
+      <span id="musicLabel">Música</span>
+    </button>
+  </header>
+
+  <div id="stage" aria-live="polite"></div>
+
+  <div id="toast" class="toast" role="status"></div>
+
+  <footer class="bottom">
+    <div class="footer-label">Presentación de clausura</div>
+
+    <div class="navigation">
+      <button class="nav-button" id="prevButton"
+        type="button" aria-label="Diapositiva anterior">‹</button>
+
+      <div class="dots" id="dots" aria-label="Seleccionar diapositiva"></div>
+
+      <span class="counter" id="counter">01 / 05</span>
+
+      <button class="nav-button" id="nextButton"
+        type="button" aria-label="Siguiente diapositiva">›</button>
+    </div>
+  </footer>
+
+  <div class="progress" id="progress"></div>
+
+  <!--
+    Para escuchar Mi corazón encantado en piano:
+    coloca tu archivo de audio autorizado en el mismo repositorio
+    que index.html y llámalo:
+    mi-corazon-encantado-piano.mp3
+  -->
+  <audio id="music" src="mi-corazon-encantado-piano.mp3"
+    preload="none" loop></audio>
+
+</main>
+
+<script>
+(() => {
+  "use strict";
+
+  const stage = document.getElementById("stage");
+  const dotsContainer = document.getElementById("dots");
+  const counter = document.getElementById("counter");
+  const progress = document.getElementById("progress");
+  const toast = document.getElementById("toast");
+  const music = document.getElementById("music");
+  const musicButton = document.getElementById("musicButton");
+  const musicLabel = document.getElementById("musicLabel");
+  const musicSymbol = document.getElementById("musicSymbol");
+
+  let current = 0;
+  let toastTimer;
+  let touchStartX = 0;
+
+  // Traje formal ilustrado en gris plata y azul marino.
+  const suit = `
+    <svg class="cover-figure" viewBox="0 0 220 260"
+      role="img" aria-label="Traje formal gris con corbata azul marino">
+      <defs>
+        <linearGradient id="suitGray" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#d4d9e1"/>
+          <stop offset="45%" stop-color="#929dac"/>
+          <stop offset="100%" stop-color="#687589"/>
+        </linearGradient>
+        <linearGradient id="navyTie" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#304a76"/>
+          <stop offset="100%" stop-color="#101e3a"/>
+        </linearGradient>
+        <linearGradient id="shirtWhite" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#ffffff"/>
+          <stop offset="100%" stop-color="#dce3ed"/>
+        </linearGradient>
+      </defs>
+
+      <!-- Cuello y cabeza estilizados -->
+      <ellipse cx="110" cy="45" rx="28" ry="32" fill="#b6bdc8"/>
+      <path d="M93 66 L93 91 L110 105 L127 91 L127 66 Z"
+        fill="#c0c7d1"/>
+
+      <!-- Hombros y cuerpo de la chaqueta -->
+      <path d="M92 84
+        L67 91
+        Q51 95 42 115
+        L17 207
+        Q15 218 29 222
+        L58 230
+        L162 230
+        L191 222
+        Q205 218 203 207
+        L178 115
+        Q169 95 153 91
+        L128 84
+        L110 104 Z"
+        fill="url(#suitGray)"/>
+
+      <!-- Camisa -->
+      <path d="M93 81 L110 105 L127 81
+        L145 96 L131 152
+        L110 169 L89 152
+        L75 96 Z"
+        fill="url(#shirtWhite)"/>
+
+      <!-- Solapas -->
+      <path d="M92 83 L110 105 L88 144 L71 103 Z"
+        fill="#8995a6" stroke="#dfe4ec" stroke-width="1"/>
+      <path d="M128 83 L110 105 L132 144 L149 103 Z"
+        fill="#52637d" stroke="#bfc9d8" stroke-width="1"/>
+
+      <!-- Corbata azul marino -->
+      <path d="M104 102 L110 94 L116 102
+        L114 119 L120 166 L110 180 L100 166
+        L106 119 Z"
+        fill="url(#navyTie)"/>
+
+      <path d="M110 180 L110 213" stroke="#405575"
+        stroke-width="1.5" opacity=".8"/>
+
+      <!-- Bolsillo y pañuelo -->
+      <path d="M145 167 L169 173 L165 188 L142 182 Z"
+        fill="#65748b" opacity=".85"/>
+      <path d="M148 169 L156 158 L163 172 Z"
+        fill="#eef2f8"/>
+
+      <!-- Botones -->
+      <circle cx="130" cy="190" r="2.3" fill="#e5e9f0"/>
+      <circle cx="130" cy="203" r="2.3" fill="#e5e9f0"/>
+
+      <!-- Base -->
+      <path d="M48 230 L172 230 L181 247
+        Q110 256 39 247 Z"
+        fill="#101d35" opacity=".9"/>
+    </svg>
+  `;
+
+  const slides = [
+    {
+      className: "cover",
+      html: `
+        <div class="slide-content">
+          <div class="eyebrow">Un momento especial</div>
+          <h1 class="cover-title">
+            Clausura
+            <span>Una noche para recordar</span>
+          </h1>
+          <p class="subtitle">
+            Una etapa termina,<br>
+            una nueva historia comienza.
+          </p>
+          <div class="ornament">✦</div>
+          ${suit}
+          <div class="small-note">Bienvenidos</div>
+        </div>
+      `
+    },
+    {
+      className: "memories",
+      html: `
+        <div class="slide-content">
+          <div class="big-number">01</div>
+          <div class="eyebrow">El camino recorrido</div>
+          <h2 class="section-title">
+            Todo lo vivido<br>
+            nos trajo <em>hasta aquí.</em>
+          </h2>
+          <p class="body-copy">
+            Cada experiencia dejó una enseñanza.
+            Cada reto nos ayudó a crecer.
+            Y cada momento se convirtió en parte de una historia
+            que siempre llevaremos con nosotros.
+          </p>
+          <div class="ornament">✦</div>
+        </div>
+      `
+    },
+    {
+      className: "values",
+      html: `
+        <div class="slide-content">
+          <div class="eyebrow">Lo que nos llevamos</div>
+          <h2 class="section-title">
+            Mucho más que<br>
+            <em>recuerdos.</em>
+          </h2>
+
+          <div class="cards">
+            <article class="memory-card">
+              <div class="card-icon">✧</div>
+              <h3>Esfuerzo</h3>
+              <p>Cada paso tuvo su valor.</p>
+            </article>
+
+            <article class="memory-card">
+              <div class="card-icon">◇</div>
+              <h3>Aprendizaje</h3>
+              <p>Crecimos con cada experiencia.</p>
+            </article>
+
+            <article class="memory-card">
+              <div class="card-icon">♡</div>
+              <h3>Amistad</h3>
+              <p>Personas que dejaron huella.</p>
+            </article>
+          </div>
+        </div>
+      `
+    },
+    {
+      className: "gratitude",
+      html: `
+        <div class="slide-content">
+          <div class="quote-mark">“</div>
+          <div class="eyebrow">Con el corazón</div>
+          <h2 class="quote">
+            Las mejores historias<br>
+            se construyen <span>juntos.</span>
+          </h2>
+          <div class="ornament">✦</div>
+          <p class="body-copy">
+            Gracias a quienes acompañaron este camino,
+            compartieron su tiempo, ofrecieron su apoyo
+            y fueron parte de cada logro.
+          </p>
+        </div>
+      `
+    },
+    {
+      className: "final",
+      html: `
+        <div class="slide-content">
+          <div class="eyebrow">Un nuevo comienzo</div>
+          <h2 class="thank-you">
+            Gracias
+            <span>por ser parte</span>
+          </h2>
+          <div class="ornament">✦</div>
+          <p class="final-line">
+            Hoy celebramos lo que hemos logrado<br>
+            y recibimos con ilusión todo lo que viene.
+          </p>
+          ${suit}
+          <div class="small-note">Lo mejor está por venir</div>
+        </div>
+      `
+    }
+  ];
+
+  // Crear las diapositivas.
+  slides.forEach((slide, index) => {
+    const section = document.createElement("section");
+    section.className = "slide" + (index === 0 ? " active" : "");
+    section.innerHTML = slide.html;
+    section.setAttribute("aria-label",
+      `Diapositiva ${index + 1} de ${slides.length}`);
+    stage.appendChild(section);
+
+    const dot = document.createElement("button");
+    dot.type = "button";
+    dot.className = "dot" + (index === 0 ? " active" : "");
+    dot.setAttribute("aria-label", `Ir a la diapositiva ${index + 1}`);
+    dot.addEventListener("click", () => showSlide(index));
+    dotsContainer.appendChild(dot);
+  });
+
+  const slideElements = Array.from(stage.querySelectorAll(".slide"));
+  const dotElements = Array.from(dotsContainer.querySelectorAll(".dot"));
+
+  function showSlide(index) {
+    current = Math.max(0, Math.min(index, slides.length - 1));
+
+    slideElements.forEach((slide, i) => {
+      slide.classList.toggle("active", i === current);
+    });
+
+    dotElements.forEach((dot, i) => {
+      dot.classList.toggle("active", i === current);
+    });
+
+    counter.textContent =
+      String(current + 1).padStart(2, "0") +
+      " / " +
+      String(slides.length).padStart(2, "0");
+
+    progress.style.width =
+      ((current + 1) / slides.length * 100) + "%";
+
+    document.getElementById("prevButton").style.opacity =
+      current === 0 ? ".45" : "1";
+
+    document.getElementById("nextButton").style.opacity =
+      current === slides.length - 1 ? ".45" : "1";
+  }
+
+  document.getElementById("prevButton").addEventListener("click", () => {
+    showSlide((current - 1 + slides.length) % slides.length);
+  });
+
+  document.getElementById("nextButton").addEventListener("click", () => {
+    showSlide((current + 1) % slides.length);
+  });
+
+  // Controles de teclado.
+  window.addEventListener("keydown", event => {
+    if (event.key === "ArrowRight" || event.key === " ") {
+      event.preventDefault();
+      showSlide((current + 1) % slides.length);
+    }
+
+    if (event.key === "ArrowLeft") {
+      event.preventDefault();
+      showSlide((current - 1 + slides.length) % slides.length);
+    }
+  });
+
+  // Deslizar con el dedo en teléfonos.
+  stage.addEventListener("touchstart", event => {
+    touchStartX = event.changedTouches[0].screenX;
+  }, { passive: true });
+
+  stage.addEventListener("touchend", event => {
+    const distance =
+      event.changedTouches[0].screenX - touchStartX;
+
+    if (Math.abs(distance) > 65) {
+      if (distance < 0) {
+        showSlide((current + 1) % slides.length);
+      } else {
+        showSlide((current - 1 + slides.length) % slides.length);
+      }
+    }
+  }, { passive: true });
+
+  // Estrellas y pequeños destellos ambientales.
+  const particles = document.getElementById("particles");
+
+  for (let i = 0; i < 75; i++) {
+    const spark = document.createElement("span");
+    spark.className = "spark";
+    spark.style.left = (Math.random() * 100) + "%";
+    spark.style.top = (Math.random() * 100) + "%";
+    spark.style.setProperty(
+      "--duration",
+      (2.5 + Math.random() * 4.5) + "s"
+    );
+    spark.style.setProperty(
+      "--delay",
+      (-Math.random() * 6) + "s"
+    );
+    spark.style.opacity = String(.2 + Math.random() * .6);
+    particles.appendChild(spark);
+  }
+
+  // Mensajes pequeños en pantalla.
+  function showToast(message) {
+    toast.textContent = message;
+    toast.classList.add("visible");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => {
+      toast.classList.remove("visible");
+    }, 5000);
+  }
+
+  // Reproductor para un archivo de piano que tengas permiso de utilizar.
+  music.volume = 0.7;
+
+  musicButton.addEventListener("click", async () => {
+    if (!music.paused) {
+      music.pause();
+      return;
+    }
+
+    try {
+      await music.play();
+    } catch (error) {
+      showToast(
+        "Para escuchar la canción, sube tu archivo de piano al repositorio " +
+        "con el nombre mi-corazon-encantado-piano.mp3, junto a index.html."
+      );
+    }
+  });
+
+  music.addEventListener("play", () => {
+    musicLabel.textContent = "Pausar música";
+    musicSymbol.textContent = "♫";
+    musicButton.setAttribute("aria-label", "Pausar música");
+  });
+
+  music.addEventListener("pause", () => {
+    musicLabel.textContent = "Música";
+    musicSymbol.textContent = "♫";
+    musicButton.setAttribute("aria-label", "Reproducir música");
+  });
+
+  showSlide(0);
+})();
+</script>
+</body>
+</html>
